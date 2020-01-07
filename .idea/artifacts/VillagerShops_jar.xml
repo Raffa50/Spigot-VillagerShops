@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="VillagerShops:jar">
-    <output-path>$PROJECT_DIR$/out</output-path>
-    <root id="archive" name="VillagerShops.jar">
-      <element id="module-output" name="VillagerShops" />
-    </root>
-  </artifact>
-</component>

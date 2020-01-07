@@ -4,11 +4,11 @@ import org.bukkit.Location;
 import org.bukkit.entity.Villager;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 public class Shop {
     private String id;
-    private Collection<Trade> trades = new ArrayList<>();
+    private List<Trade> trades = new ArrayList<>();
 
     public Location pos;
     public String name;
@@ -25,5 +25,5 @@ public class Shop {
 
     public String getId(){ return id; }
 
-    public Collection<Trade> getTrades(){ return trades; }
+    public List<Trade> getTrades(){ return trades; }
 }

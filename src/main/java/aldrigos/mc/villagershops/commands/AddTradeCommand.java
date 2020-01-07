@@ -7,10 +7,10 @@ import org.bukkit.command.CommandSender;
 
 import java.util.LinkedList;
 
-public class AddRecipeCommand implements SubCommand {
+public class AddTradeCommand implements SubCommand {
     private final ShopsManager manager;
 
-    public AddRecipeCommand(ShopsManager manager) {
+    public AddTradeCommand(ShopsManager manager) {
         this.manager = manager;
     }
 

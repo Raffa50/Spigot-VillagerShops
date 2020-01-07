@@ -31,7 +31,16 @@ public class VShopCommands implements CommandExecutor {
                 ex = new DeleteShopCommand(p.manager);
                 break;
             case "add":
-                ex = new AddRecipeCommand(p.manager);
+                ex = new AddTradeCommand(p.manager);
+                break;
+            case "remove":
+                ex = new RemoveTradeCommand(p.manager);
+                break;
+            case "list":
+                ex = new ListShopsCommand(p.manager);
+                break;
+            case "goto":
+                ex = new GoToShopCommand(p.manager);
                 break;
             default:
                 Messages.PARAM_INVALID.send(sender, sc);

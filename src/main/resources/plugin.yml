@@ -32,4 +32,4 @@ permissions:
       vshop.admin.delete: true
       vshop.admin.edit: true
       vshop.admin.list: true
-      vshop.admin.info: true
+      vshop.admin.goto: true
