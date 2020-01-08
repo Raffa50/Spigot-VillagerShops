@@ -5,16 +5,16 @@ import aldrigos.mc.villagershops.listeners.*;
 import com.google.gson.Gson;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class VillagerShopsPlugin extends JavaPlugin {
     private static final String saveFile = "plugins/vshop/shops.json";
 
     public ShopsManager manager;
 
-    private void load() throws Exception {
+    private void load() throws IOException {
         var file = new File(saveFile);
         if(!file.exists())
             manager = new ShopsManager();
@@ -28,13 +28,20 @@ public class VillagerShopsPlugin extends JavaPlugin {
         manager.load(this);
     }
 
+    private void save() throws IOException {
+        var file = new File(saveFile);
+        file.mkdir();
+        var json = new Gson();
+        Files.writeString(Paths.get(saveFile), json.toJson(manager));
+    }
+
     @Override
     public void onEnable(){
         try{
             load();
         }catch (Exception ex){
             getServer().getLogger().throwing(VillagerShopsPlugin.class.getName(), "onEnable", ex);
-            getServer().getLogger().severe("[VS]loading error");
+            getServer().getLogger().severe("[VS]load error");
             setEnabled(false);
             return;
         }
@@ -44,5 +51,15 @@ public class VillagerShopsPlugin extends JavaPlugin {
         pm.registerEvents(new VillagerDamageListener(this), this);
 
         this.getCommand("vshop").setExecutor(new VShopCommands(this));
+    }
+
+    @Override
+    public void onDisable(){
+        try {
+            save();
+        } catch (Exception ex) {
+            getServer().getLogger().throwing(VillagerShopsPlugin.class.getName(), "onEnable", ex);
+            getServer().getLogger().severe("[VS]save error");
+        }
     }
 }

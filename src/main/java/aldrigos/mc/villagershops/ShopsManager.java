@@ -31,6 +31,7 @@ public class ShopsManager {
     private void setShop(Villager v, Shop s){
         v.setProfession(s.type);
         v.setCustomName(s.name);
+        v.setAI(false);
 
         var m = (Merchant) v;
         m.setRecipes(
