@@ -3,6 +3,7 @@ package aldrigos.mc.villagershops;
 import aldrigos.mc.villagershops.commands.VShopCommands;
 import aldrigos.mc.villagershops.listeners.*;
 import com.google.gson.Gson;
+import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
@@ -11,6 +12,7 @@ import java.nio.file.Paths;
 
 public class VillagerShopsPlugin extends JavaPlugin {
     private static final String saveFile = "plugins/vshop/shops.json";
+    public static Server server;
 
     public ShopsManager manager;
 
@@ -30,13 +32,14 @@ public class VillagerShopsPlugin extends JavaPlugin {
 
     private void save() throws IOException {
         var file = new File(saveFile);
-        file.mkdir();
+        file.getParentFile().mkdir();
         var json = new Gson();
         Files.writeString(Paths.get(saveFile), json.toJson(manager));
     }
 
     @Override
     public void onEnable(){
+        server = getServer();
         try{
             load();
         }catch (Exception ex){
