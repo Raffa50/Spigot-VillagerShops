@@ -10,7 +10,7 @@ public class Shop {
     private String id;
     private List<Trade> trades = new ArrayList<>();
 
-    public Location pos;
+    private LocationAdapter pos;
     public String name;
     public Villager.Profession type;
 
@@ -20,10 +20,12 @@ public class Shop {
         this.id = id;
         this.name = name;
         this.type = type;
-        this.pos = pos;
+        this.pos = new LocationAdapter(pos);
     }
 
     public String getId(){ return id; }
 
     public List<Trade> getTrades(){ return trades; }
+
+    public Location getLocation(){ return pos.toLocation(); }
 }

@@ -21,8 +21,8 @@ public class ShopsManager {
     }
 
     public UUID createShop(Shop shop){
-        var vshop = (Villager) shop.pos.getWorld()
-                .spawnEntity(shop.pos, EntityType.VILLAGER);
+        var vshop = (Villager) shop.getLocation().getWorld()
+                .spawnEntity(shop.getLocation(), EntityType.VILLAGER);
         setShop(vshop, shop);
         shops.put(vshop.getUniqueId(), shop);
         return vshop.getUniqueId();

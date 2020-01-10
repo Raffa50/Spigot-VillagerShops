@@ -34,7 +34,7 @@ public class GoToShopCommand implements SubCommand {
         }
         var player = (Player)sender;
 
-        player.teleport(shop.pos);
+        player.teleport(shop.getLocation());
         return true;
     }
 }
