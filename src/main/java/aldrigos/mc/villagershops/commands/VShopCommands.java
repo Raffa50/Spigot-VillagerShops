@@ -42,8 +42,12 @@ public class VShopCommands implements CommandExecutor {
             case "goto":
                 ex = new GoToShopCommand(p.manager);
                 break;
+            case "?":
+            case "help":
+                ex = new HelpCommand();
+                break;
             default:
-                Messages.PARAM_INVALID.send(sender, sc);
+                Messages.PARAM_INVALID.send(sender, "/vshop "+sc);
                 return false;
         }
 

@@ -50,7 +50,9 @@ public class VillagerShopsPlugin extends JavaPlugin {
         //pm.registerEvents(new VillagerInteractListener(this), this);
         pm.registerEvents(new VillagerDamageListener(this), this);
 
-        this.getCommand("vshop").setExecutor(new VShopCommands(this));
+        var vshopCmd = getCommand("vshop");
+        vshopCmd.setExecutor(new VShopCommands(this));
+        vshopCmd.setTabCompleter(new CommandCompleter(manager));
     }
 
     @Override

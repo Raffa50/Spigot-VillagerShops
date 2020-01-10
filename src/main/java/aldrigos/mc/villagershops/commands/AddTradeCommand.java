@@ -42,7 +42,7 @@ public class AddTradeCommand implements SubCommand {
         }
 
         try{
-            request = Material.valueOf(args.get(2));
+            request = Material.valueOf(args.get(2).toUpperCase());
         } catch(Exception ex){
             Messages.PARAM_INVALID.send(sender, args.get(2));
             return false;
@@ -56,7 +56,7 @@ public class AddTradeCommand implements SubCommand {
         }
 
         try{
-            result = Material.valueOf(args.get(4));
+            result = Material.valueOf(args.get(4).toUpperCase());
         } catch(Exception ex){
             Messages.PARAM_INVALID.send(sender, args.get(4));
             return false;

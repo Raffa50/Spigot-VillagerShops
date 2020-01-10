@@ -37,6 +37,10 @@ class NewShopCommand implements SubCommand {
                 Messages.PARAM_INVALID.send(sender, args.get(2));
                 return false;
             }
+        if(type.equals(Villager.Profession.NONE)){
+            Messages.PARAM_INVALID.send(sender, args.get(2));
+            return false;
+        }
 
         if(manager.existShopId(args.get(0))){
             Messages.SHOP_EXIST.send(player, args.get(0));

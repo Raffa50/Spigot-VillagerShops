@@ -31,13 +31,17 @@ public class RemoveTradeCommand implements SubCommand {
             Messages.PARAM_INVALID.send(sender, args.get(1));
             return false;
         }
+        if(num <= 0){
+            Messages.PARAM_INVALID.send(sender, num);
+            return false;
+        }
 
         if(!manager.existShopId(args.get(0))){
             Messages.SHOP_NOT_EXIST.send(sender, args.get(0));
             return false;
         }
 
-        manager.removeTrade(args.get(0), num);
+        manager.removeTrade(args.get(0), num -1);
         return true;
     }
 }

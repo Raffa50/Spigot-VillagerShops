@@ -22,7 +22,7 @@ public class ShopsManager {
 
     public UUID createShop(Shop shop){
         var vshop = (Villager) shop.pos.getWorld()
-                .spawnEntity(shop.pos.add(0,1,0), EntityType.VILLAGER);
+                .spawnEntity(shop.pos, EntityType.VILLAGER);
         setShop(vshop, shop);
         shops.put(vshop.getUniqueId(), shop);
         return vshop.getUniqueId();
@@ -106,6 +106,8 @@ public class ShopsManager {
         var shop = shops.get(entityId);
         shop.getTrades().remove(num);
         var vshop = (Merchant) p.getServer().getEntity(entityId);
-        vshop.getRecipes().remove(num);
+        var recipes = vshop.getRecipes();
+        if(recipes.size() > num)
+            recipes.remove(num);
     }
 }
