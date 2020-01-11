@@ -29,6 +29,7 @@ public class DeleteShopCommand implements SubCommand {
             return false;
         }
         manager.deleteShop(id);
+        Messages.SHOP_DELETED.send(sender);
         return true;
     }
 }

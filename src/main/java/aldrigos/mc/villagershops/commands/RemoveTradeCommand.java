@@ -42,6 +42,7 @@ public class RemoveTradeCommand implements SubCommand {
         }
 
         manager.removeTrade(args.get(0), num -1);
+        Messages.TRADE_REMOVED.send(sender, args.get(0));
         return true;
     }
 }

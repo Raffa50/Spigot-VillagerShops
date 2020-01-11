@@ -18,6 +18,7 @@ public class LocationAdapter {
         z = loc.getZ();
         yaw = loc.getYaw();
         pitch = loc.getPitch();
+        worldId = loc.getWorld().getUID();
     }
 
     public Location toLocation(){

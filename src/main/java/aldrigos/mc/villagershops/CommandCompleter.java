@@ -1,36 +1,72 @@
 package aldrigos.mc.villagershops;
 
+import org.bukkit.Material;
 import org.bukkit.command.*;
+import org.bukkit.entity.Villager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class CommandCompleter implements TabCompleter {
-    private final ShopsManager manager;
+    private static final List<String>
+        subCommands = Arrays.asList("new", "delete", "?", "help", "list", "goto", "add", "remove");
 
-    public CommandCompleter(ShopsManager manager){
+    private final ShopsManager manager;
+    private final Logger log;
+
+    public CommandCompleter(ShopsManager manager, Logger logger){
         this.manager = manager;
+        this.log = logger;
+    }
+
+    private List<String> getMaterials(String startsWith){
+        return Arrays.stream(Material.values())
+                .map(m -> m.toString().toLowerCase())
+                .filter(s -> s.startsWith(startsWith.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    private List<String> getShopNames(String startsWith){
+        return manager.getShops().stream()
+                .map(s -> s.name)
+                .filter(s -> s.startsWith(startsWith))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String s, String[] args) {
-        if(!command.getName().toLowerCase().equals("vshop"))
-            return null;
-
-        if(args.length == 0)
-            return Arrays.asList("new", "delete", "?", "help", "list", "goto", "add", "remove");
+    public List<String> onTabComplete(CommandSender sender, Command command, String l, String[] args) {
+        if(args.length < 1)
+            return subCommands;
 
         switch(args[0].toLowerCase()){
+            case "delete":
             case "goto":
-                var ret = new ArrayList<String>();
-                for(var shop: manager.getShops())
-                    ret.add(shop.name);
-                return ret;
+                return getShopNames(args.length > 1 ? args[1] : "");
+
             case "new":
+                if(args.length >= 4)
+                    return Arrays.stream(Villager.Profession.values()).map(s -> s.toString()).collect(Collectors.toList());
+                return null;
 
+            case "remove":
+                if(args.length <= 2)
+                    return getShopNames(args.length > 1 ? args[1] : "");
+                return null;
+
+            case "add": // /vshop add <id> <qty> <request> <qty> <result>
+                if(args.length == 2)
+                    return manager.getShops().stream().map(s -> s.name).collect(Collectors.toList());
+                if(args.length == 4)
+                    return getMaterials(args[3]);
+                if(args.length == 6)
+                    return getMaterials(args[5]);
+                return null;
+
+            default:
+                return args.length < 2 ? subCommands : null;
         }
-
-        return null;
     }
 }

@@ -43,8 +43,8 @@ public class VillagerShopsPlugin extends JavaPlugin {
         try{
             load();
         }catch (Exception ex){
-            getServer().getLogger().throwing(VillagerShopsPlugin.class.getName(), "onEnable", ex);
-            getServer().getLogger().severe("[VS]load error");
+            getLogger().throwing(VillagerShopsPlugin.class.getName(), "onEnable", ex);
+            getLogger().severe("[VS]load error");
             setEnabled(false);
             return;
         }
@@ -55,7 +55,7 @@ public class VillagerShopsPlugin extends JavaPlugin {
 
         var vshopCmd = getCommand("vshop");
         vshopCmd.setExecutor(new VShopCommands(this));
-        vshopCmd.setTabCompleter(new CommandCompleter(manager));
+        vshopCmd.setTabCompleter(new CommandCompleter(manager, getLogger()));
     }
 
     @Override
@@ -63,8 +63,8 @@ public class VillagerShopsPlugin extends JavaPlugin {
         try {
             save();
         } catch (Exception ex) {
-            getServer().getLogger().throwing(VillagerShopsPlugin.class.getName(), "onEnable", ex);
-            getServer().getLogger().severe("[VS]save error");
+            getLogger().throwing(VillagerShopsPlugin.class.getName(), "onEnable", ex);
+            getLogger().severe("[VS]save error");
         }
     }
 }

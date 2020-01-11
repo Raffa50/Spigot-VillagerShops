@@ -4,17 +4,16 @@ import aldrigos.mc.villagershops.data.*;
 import org.bukkit.Location;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.Merchant;
+import org.bukkit.inventory.MerchantRecipe;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ShopsManager {
     private Map<UUID, Shop> shops = new HashMap<>();
     private transient VillagerShopsPlugin p;
 
-    public Iterable<Shop> getShops(){ return shops.values(); }
+    public Collection<Shop> getShops(){ return shops.values(); }
 
     public UUID createShop(String id, String name, Location pos, Villager.Profession type){
         return createShop(new Shop(id, name, pos, type));
@@ -95,7 +94,9 @@ public class ShopsManager {
 
         shop.getTrades().add(trade);
         var vshop = (Merchant) p.getServer().getEntity(entityId);
-        vshop.getRecipes().add(trade.getRecipe());
+        var newTrades = new ArrayList<MerchantRecipe>(vshop.getRecipes());
+        newTrades.add(trade.getRecipe());
+        vshop.setRecipes(newTrades);
     }
 
     public void removeTrade(String id, int num){

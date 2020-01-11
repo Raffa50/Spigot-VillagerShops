@@ -35,7 +35,7 @@ public class AddTradeCommand implements SubCommand {
         short requestQty, resultQty;
 
         try{
-            requestQty = Short.valueOf(args.get(1));
+            requestQty = Short.parseShort(args.get(1));
         } catch(Exception ex){
             Messages.PARAM_INVALID.send(sender, args.get(1));
             return false;
@@ -49,7 +49,7 @@ public class AddTradeCommand implements SubCommand {
         }
 
         try{
-            resultQty = Short.valueOf(args.get(3));
+            resultQty = Short.parseShort(args.get(3));
         } catch(Exception ex){
             Messages.PARAM_INVALID.send(sender, args.get(3));
             return false;
@@ -66,6 +66,7 @@ public class AddTradeCommand implements SubCommand {
         trade.setIngredient(request, requestQty);
         trade.setResult(result, resultQty);
         manager.addTrade(args.get(0), trade);
+        Messages.TRADE_ADDED.send(sender, args.get(0));
 
         return true;
     }

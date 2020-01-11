@@ -4,7 +4,7 @@ version: '0.1.0.1'
 description: Customize Villager shops
 load: POSTWORLD
 author: Aldrigo Raffaele
-website: spigotmc.org
+website: https://github.com/Raffa50/Spigot-VillagerShops
 prefix: VillagerShops
 api-version: 1.14
 
