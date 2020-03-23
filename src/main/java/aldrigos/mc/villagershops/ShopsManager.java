@@ -91,12 +91,8 @@ public class ShopsManager {
             return;
 
         var shop = shops.get(entityId);
-
         shop.getTrades().add(trade);
-        var vshop = (Merchant) p.getServer().getEntity(entityId);
-        var newTrades = new ArrayList<MerchantRecipe>(vshop.getRecipes());
-        newTrades.add(trade.getRecipe());
-        vshop.setRecipes(newTrades);
+        setShop((Villager) p.getServer().getEntity(entityId), shop);
     }
 
     public void removeTrade(String id, int num){
@@ -106,9 +102,6 @@ public class ShopsManager {
 
         var shop = shops.get(entityId);
         shop.getTrades().remove(num);
-        var vshop = (Merchant) p.getServer().getEntity(entityId);
-        var recipes = vshop.getRecipes();
-        if(recipes.size() > num)
-            recipes.remove(num);
+        setShop((Villager) p.getServer().getEntity(entityId), shop);
     }
 }
