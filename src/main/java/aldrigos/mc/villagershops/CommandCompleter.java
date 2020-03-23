@@ -36,6 +36,13 @@ public class CommandCompleter implements TabCompleter {
                 .collect(Collectors.toList());
     }
 
+    private List<String> getShopIds(String startsWith){
+        return manager.getShops().stream()
+                .map(s -> s.getId())
+                .filter(s -> s.startsWith(startsWith))
+                .collect(Collectors.toList());
+    }
+
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String l, String[] args) {
         if(args.length < 1)
@@ -44,7 +51,7 @@ public class CommandCompleter implements TabCompleter {
         switch(args[0].toLowerCase()){
             case "delete":
             case "goto":
-                return getShopNames(args.length > 1 ? args[1] : "");
+                return getShopIds(args.length > 1 ? args[1] : "");
 
             case "new":
                 if(args.length >= 4)
@@ -53,7 +60,7 @@ public class CommandCompleter implements TabCompleter {
 
             case "remove":
                 if(args.length <= 2)
-                    return getShopNames(args.length > 1 ? args[1] : "");
+                    return getShopIds(args.length > 1 ? args[1] : "");
                 return null;
 
             case "add": // /vshop add <id> <qty> <request> <qty> <result>

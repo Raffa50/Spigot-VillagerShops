@@ -1,6 +1,6 @@
 main: aldrigos.mc.villagershops.VillagerShopsPlugin
 name: VillagerShops
-version: '0.1.0.1'
+version: '0.1.0.2'
 description: Customize Villager shops
 load: POSTWORLD
 author: Aldrigo Raffaele
