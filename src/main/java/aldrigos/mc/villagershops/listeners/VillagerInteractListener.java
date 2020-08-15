@@ -1,11 +1,15 @@
 package aldrigos.mc.villagershops.listeners;
 
+import aldrigos.mc.villagershops.Messages;
 import aldrigos.mc.villagershops.VillagerShopsPlugin;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Villager;
 import org.bukkit.event.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.*;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -21,22 +25,18 @@ public class VillagerInteractListener implements Listener {
 
     @EventHandler
     public void onPlayerShop(PlayerInteractEntityEvent e){
-/*        var entity = e.getRightClicked();
-        if(!(entity instanceof Merchant))
+        if(!p.playerVsInfo.contains(e.getPlayer().getUniqueId()))
             return;
 
-        var m = (Merchant) entity;
-        var recipes = new ArrayList<MerchantRecipe>();
+        var entity = e.getRightClicked();
+        if(!(entity instanceof Villager))
+            return;
 
-        var r = new MerchantRecipe(new ItemStack(Material.GOLD_INGOT), 999);
-        r.addIngredient(new ItemStack(Material.EMERALD, 3));
-        recipes.add(r);
+        String shopid = entity.getPersistentDataContainer()
+                .getOrDefault(new NamespacedKey(p, "shopid"), PersistentDataType.STRING, "");
 
-        m.setRecipes(recipes);*/
-    }
+        Messages.SHOP_INFO.send(e.getPlayer(), shopid);
 
-    @EventHandler
-    public void onPlayerShop(InventoryClickEvent e){
-        log.info("InventoryClickEvent");
+        p.playerVsInfo.remove(e.getPlayer().getUniqueId());
     }
 }

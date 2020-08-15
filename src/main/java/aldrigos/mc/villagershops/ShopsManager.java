@@ -2,9 +2,11 @@ package aldrigos.mc.villagershops;
 
 import aldrigos.mc.villagershops.data.*;
 import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.Merchant;
 import org.bukkit.inventory.MerchantRecipe;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -31,6 +33,8 @@ public class ShopsManager {
         v.setProfession(s.type);
         v.setCustomName(s.name);
         v.setAI(false);
+
+        v.getPersistentDataContainer().set(new NamespacedKey(p, "shopid"), PersistentDataType.STRING, s.getId());
 
         var m = (Merchant) v;
         m.setRecipes(

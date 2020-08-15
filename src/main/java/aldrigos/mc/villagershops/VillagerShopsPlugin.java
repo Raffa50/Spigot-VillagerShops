@@ -9,9 +9,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashSet;
+import java.util.UUID;
 
 public class VillagerShopsPlugin extends JavaPlugin {
     private static final String saveFile = "plugins/vshop/shops.json";
+    public static final HashSet<UUID> playerVsInfo = new HashSet<>();
     public static Server server;
 
     public ShopsManager manager;
@@ -50,7 +53,7 @@ public class VillagerShopsPlugin extends JavaPlugin {
         }
 
         var pm = getServer().getPluginManager();
-        //pm.registerEvents(new VillagerInteractListener(this), this);
+        pm.registerEvents(new VillagerInteractListener(this), this);
         pm.registerEvents(new VillagerDamageListener(this), this);
 
         var vshopCmd = getCommand("vshop");

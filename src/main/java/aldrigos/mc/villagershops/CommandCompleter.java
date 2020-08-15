@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class CommandCompleter implements TabCompleter {
     private static final List<String>
-        subCommands = Arrays.asList("new", "delete", "?", "help", "list", "goto", "add", "remove");
+        subCommands = Arrays.asList("new", "delete", "?", "help", "list", "goto", "add", "remove", "info");
 
     private final ShopsManager manager;
     private final Logger log;
@@ -26,13 +26,6 @@ public class CommandCompleter implements TabCompleter {
         return Arrays.stream(Material.values())
                 .map(m -> m.toString().toLowerCase())
                 .filter(s -> s.startsWith(startsWith.toLowerCase()))
-                .collect(Collectors.toList());
-    }
-
-    private List<String> getShopNames(String startsWith){
-        return manager.getShops().stream()
-                .map(s -> s.name)
-                .filter(s -> s.startsWith(startsWith))
                 .collect(Collectors.toList());
     }
 
@@ -64,12 +57,14 @@ public class CommandCompleter implements TabCompleter {
                 return null;
 
             case "add": // /vshop add <id> <qty> <request> <qty> <result>
-                if(args.length == 2)
-                    return manager.getShops().stream().map(s -> s.name).collect(Collectors.toList());
-                if(args.length == 4)
-                    return getMaterials(args[3]);
-                if(args.length == 6)
-                    return getMaterials(args[5]);
+                switch(args.length){
+                    case 2:
+                        return getShopIds(args.length > 1 ? args[1] : "");
+                    case 4:
+                        return getMaterials(args[3]);
+                    case 6:
+                        return getMaterials(args[5]);
+                }
                 return null;
 
             default:

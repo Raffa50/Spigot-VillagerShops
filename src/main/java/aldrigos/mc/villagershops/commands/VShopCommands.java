@@ -42,6 +42,9 @@ public class VShopCommands implements CommandExecutor {
             case "goto":
                 ex = new GoToShopCommand(p.manager);
                 break;
+            case "info":
+                ex = new InfoCommand();
+                break;
             case "?":
             case "help":
                 ex = new HelpCommand();

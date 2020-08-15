@@ -11,6 +11,7 @@ public enum Messages {
     SHOP_DELETED(ChatColor.GREEN+"[VS]Shop deleted"),
     SHOP_EXIST(ChatColor.RED+"[VS]There is already a shop with id %s"),
     SHOP_NOT_EXIST(ChatColor.RED+"[VS]Shop %s does not exist"),
+    SHOP_INFO(ChatColor.YELLOW+"[VS]ShopId: %s"),
     TRADE_ADDED(ChatColor.GREEN+"[VS]Trade added to shop %s"),
     TRADE_REMOVED(ChatColor.GREEN+"[VS]Trade removed from shop %s");
 
